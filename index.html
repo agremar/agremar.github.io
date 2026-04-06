@@ -4,61 +4,111 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AGREMAR</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Audiowide&display=swap" rel="stylesheet">
 
 <style>
-body {
+body{
   margin:0;
   font-family:'Orbitron',sans-serif;
-  background: linear-gradient(135deg,#000,#1a0000,#000);
   color:white;
+  overflow-x:hidden;
+  background:black;
 }
 
-/* NAV */
-.nav{
-  display:flex;
-  justify-content:space-between;
-  padding:15px 20px;
-  background:rgba(0,0,0,0.7);
+/* 🔥 ANIMATED BACKGROUND */
+body::before{
+  content:"";
   position:fixed;
   width:100%;
+  height:100%;
+  background: radial-gradient(circle at 50% 50%, #ff0000, #000000 70%);
+  opacity:0.2;
+  animation: moveBg 6s infinite alternate;
+  z-index:-1;
 }
 
+@keyframes moveBg{
+  from{transform:scale(1);}
+  to{transform:scale(1.3);}
+}
+
+/* NAVBAR FIX */
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 20px;
+  background:rgba(0,0,0,0.8);
+  z-index:1000;
+}
+
+/* LOGO */
 .logo{
   color:red;
   font-size:22px;
   text-shadow:0 0 15px red;
 }
 
+/* RIGHT MENU */
+.menu a{
+  margin-left:15px;
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+}
+
+/* LEFT SIDE NAME */
+.side-name{
+  position:fixed;
+  left:10px;
+  top:50%;
+  transform:translateY(-50%) rotate(-90deg);
+  font-family:'Audiowide',cursive;
+  font-size:20px;
+  color:red;
+  text-shadow:0 0 15px red;
+  opacity:0.7;
+}
+
 /* HERO */
 .hero{
   height:100vh;
+  background:url('https://images.unsplash.com/photo-1605902711622-cfb43c44367f') center/cover;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:20px;
+  padding-top:60px;
 }
 
 .hero h1{
-  font-size:40px;
-  text-shadow:0 0 20px red;
+  font-size:45px;
+  color:red;
+  text-shadow:0 0 20px red,0 0 40px red;
   animation: glow 2s infinite alternate;
 }
 
 @keyframes glow{
-  from{ text-shadow:0 0 10px red;}
-  to{ text-shadow:0 0 30px red;}
+  from{text-shadow:0 0 10px red;}
+  to{text-shadow:0 0 40px red;}
+}
+
+.hero p{
+  font-size:16px;
+  opacity:0.8;
 }
 
 /* BUTTON */
 .btn{
   margin-top:20px;
-  padding:12px 25px;
+  padding:12px 30px;
   background:red;
   border-radius:25px;
+  box-shadow:0 0 20px red;
   cursor:pointer;
-  box-shadow:0 0 15px red;
   transition:0.3s;
 }
 
@@ -72,7 +122,6 @@ body {
   text-align:center;
 }
 
-/* CARDS */
 .cards{
   display:flex;
   flex-wrap:wrap;
@@ -83,8 +132,8 @@ body {
 .card{
   width:90%;
   max-width:250px;
-  padding:20px;
   background:#111;
+  padding:20px;
   border-radius:10px;
   transition:0.3s;
 }
@@ -94,27 +143,39 @@ body {
   transform:translateY(-5px);
 }
 
-/* MOBILE */
+/* MOBILE FIX */
 @media(min-width:768px){
   .hero h1{font-size:70px;}
+  .menu a{font-size:16px;}
 }
 </style>
 </head>
 
 <body>
 
+<!-- SIDE NAME -->
+<div class="side-name">AMAN</div>
+
+<!-- NAVBAR -->
 <div class="nav">
   <div class="logo">AGREMAR</div>
-</div>
-
-<div class="hero">
-  <div>
-    <h1>AGREMAR</h1>
-    <p>Gaming World 🔥</p>
-    <div class="btn" onclick="scrollToContent()">Enter</div>
+  <div class="menu">
+    <a href="#">Home</a>
+    <a href="#content">Content</a>
+    <a href="#about">About</a>
   </div>
 </div>
 
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <h1>AGREMAR</h1>
+    <p>Enter the next generation gaming world 🔥</p>
+    <div class="btn" onclick="scrollToContent()">Explore</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
 <div class="section" id="content">
   <h2>My Content</h2>
   <div class="cards">
@@ -122,6 +183,12 @@ body {
     <div class="card">🎥 Videos</div>
     <div class="card">🚀 Future</div>
   </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <h2>About Me</h2>
+  <p>This is AGREMAR – building a powerful digital identity 🔥</p>
 </div>
 
 <script>
