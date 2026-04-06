@@ -184,6 +184,12 @@ margin-top:10px;
 
 <body>
 
+<!-- 🔥 LOADER -->
+<div id="loader">
+  <img src="logo.png" class="loader-logo">
+  <h2>AGREMAR</h2>
+</div>
+
 <canvas id="sparks"></canvas>
 
 <!-- NAV -->
@@ -243,6 +249,18 @@ All content on this website is owned by AGREMAR and protected under copyright la
 </div>
 
 <script>
+window.addEventListener("load", function(){
+  setTimeout(()=>{
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+
+    setTimeout(()=>{
+      loader.style.display = "none";
+    },400);
+
+  },1800);
+});
+</script>
 
 /* SCROLL */
 function scrollToContent(){
