@@ -7,12 +7,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
 
 <style>
+
 body{
 margin:0;
 font-family:'Orbitron',sans-serif;
 background:#000;
 color:white;
 overflow-x:hidden;
+}
+
+/* LOADER */
+#loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+transition:opacity 0.5s ease;
+}
+
+.loader-logo{
+width:120px;
+animation: logoZoom 1.2s ease forwards;
+filter: drop-shadow(0 0 30px red);
+}
+
+#loader h2{
+color:red;
+margin-top:10px;
+letter-spacing:3px;
+}
+
+@keyframes logoZoom{
+0%{transform:scale(0.7); opacity:0;}
+100%{transform:scale(1); opacity:1;}
 }
 
 /* SPARKS */
@@ -129,7 +163,7 @@ overflow: hidden;
 transform: translateY(-10px) scale(1.05);
 box-shadow: 0 0 40px red;
 border: 1px solid red;
-  }
+}
 
 .card::before{
 content:'';
@@ -152,9 +186,9 @@ animation: shine 1s linear;
 @keyframes shine{
 0%{transform:translateX(-100%) rotate(25deg);}
 100%{transform:translateX(100%) rotate(25deg);}
-} 
+}
 
-/* VIDEO GRID */
+/* VIDEO */
 .video-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -180,49 +214,15 @@ color:gold;
 margin-top:10px;
 }
 
-/* 🔥 LOADER CSS */
-#loader{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#000;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
-transition:opacity 0.5s ease;
-}
-
-.loader-logo{
-width:120px;
-animation: logoZoom 1.5s ease forwards;
-filter: drop-shadow(0 0 30px red);
-}
-
-#loader h2{
-color:red;
-margin-top:10px;
-letter-spacing:3px;
-}
-
-@keyframes logoZoom{
-0%{transform:scale(0.7); opacity:0;}
-100%{transform:scale(1); opacity:1;}
-}
-  
 </style>
-
 </head>
 
 <body>
 
-<!-- 🔥 LOADER -->
+<!-- LOADER -->
 <div id="loader">
-  <img src="logo.png" class="loader-logo">
-  <h2>AGREMAR</h2>
+<img src="logo.png" class="loader-logo">
+<h2>AGREMAR</h2>
 </div>
 
 <canvas id="sparks"></canvas>
@@ -259,11 +259,9 @@ letter-spacing:3px;
 <div class="section" id="video">
 <h2>Latest Videos</h2>
 <div class="video-grid">
-
 <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
 <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
 <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-
 </div>
 </div>
 
@@ -277,90 +275,74 @@ letter-spacing:3px;
 <div class="footer">
 © 2026 AGREMAR  
 <div class="credit">CREATED BY AMAN SAIF</div>
-
 <p style="font-size:12px; margin-top:10px; opacity:0.6;">
 All content on this website is owned by AGREMAR and protected under copyright laws.
 </p>
 </div>
 
 <script>
-window.addEventListener("load", function(){
-  setTimeout(()=>{
-    const loader = document.getElementById("loader");
-    loader.style.opacity = "0";
 
-    setTimeout(()=>{
-      loader.style.display = "none";
-    },400);
+// LOADER FIX (NO STUCK)
+function hideLoader(){
+const loader=document.getElementById("loader");
+loader.style.opacity="0";
+setTimeout(()=>{loader.style.display="none";},500);
+}
 
-  },1800);
+window.onload=hideLoader;
+setTimeout(hideLoader,2500);
+
+// SCROLL
+function scrollToContent(){
+document.getElementById("content").scrollIntoView({behavior:"smooth"});
+}
+
+// SECTION ANIMATION
+const sections=document.querySelectorAll('.section');
+window.addEventListener('scroll',()=>{
+sections.forEach(sec=>{
+const pos=sec.getBoundingClientRect().top;
+if(pos < window.innerHeight-100){
+sec.classList.add('show');
+}
 });
-<script>
-
-window.addEventListener("load", function(){
-
-  const loader = document.getElementById("loader");
-
-  setTimeout(()=>{
-    loader.style.opacity="0";
-
-    setTimeout(()=>{
-      loader.style.display="none";
-    },500);
-
-  },1500);
-
-  window.scrollToContent=function(){
-    document.getElementById("content").scrollIntoView({behavior:"smooth"});
-  }
-
-  const sections=document.querySelectorAll('.section');
-  window.addEventListener('scroll',()=>{
-    sections.forEach(sec=>{
-      const pos=sec.getBoundingClientRect().top;
-      if(pos < window.innerHeight - 100){
-        sec.classList.add('show');
-      }
-    });
-  });
-
-  const canvas=document.getElementById("sparks");
-  const ctx=canvas.getContext("2d");
-
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-
-  let sparks=[];
-  for(let i=0;i<120;i++){
-    sparks.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      size:Math.random()*2,
-      speedY:Math.random()*1+0.5
-    });
-  }
-
-  function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    sparks.forEach(s=>{
-      s.y-=s.speedY;
-      if(s.y<0){
-        s.y=canvas.height;
-        s.x=Math.random()*canvas.width;
-      }
-      ctx.fillStyle="orange";
-      ctx.beginPath();
-      ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
-      ctx.fill();
-    });
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-
 });
+
+// SPARKS
+const canvas=document.getElementById("sparks");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let sparks=[];
+for(let i=0;i<120;i++){
+sparks.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2,
+speedY:Math.random()*1+0.5
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+sparks.forEach(s=>{
+s.y-=s.speedY;
+if(s.y<0){
+s.y=canvas.height;
+s.x=Math.random()*canvas.width;
+}
+ctx.fillStyle="orange";
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+ctx.fill();
+});
+requestAnimationFrame(animate);
+}
+animate();
+
 </script>
 
 </body>
 </html>
-  
