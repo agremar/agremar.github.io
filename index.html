@@ -5,89 +5,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AGREMAR FF</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Orbitron', sans-serif;
+    font-family:'Poppins', sans-serif;
 }
 
 body{
-    background:#000;
-    overflow:hidden;
+    background:#0d0d0d;
     color:white;
 }
 
-/* PARTICLE CANVAS */
-canvas{
-    position:fixed;
+/* NAVBAR */
+nav{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 30px;
+    background:#000;
+    position:sticky;
     top:0;
-    left:0;
-    z-index:-1;
+}
+
+nav h1{
+    color:red;
+}
+
+nav a{
+    color:white;
+    margin-left:20px;
+    text-decoration:none;
 }
 
 /* HERO */
 .hero{
-    height:100vh;
+    height:80vh;
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
     text-align:center;
+    background:linear-gradient(to bottom, #000, #1a0000);
 }
 
-/* GLASS BOX */
-.box{
-    background:rgba(0,0,0,0.5);
-    padding:50px 40px;
-    border-radius:20px;
-    backdrop-filter: blur(15px);
-    box-shadow:0 0 60px rgba(255,0,0,0.4);
+.hero h2{
+    font-size:40px;
+    color:red;
 }
 
-/* LOGO */
-.logo{
-    font-size:60px;
-    font-weight:800;
-    color:#ff0000;
-    letter-spacing:5px;
-    animation: glow 2s infinite alternate;
+.hero p{
+    margin-top:10px;
 }
 
-@keyframes glow{
-    from{
-        text-shadow:0 0 10px red;
-    }
-    to{
-        text-shadow:0 0 40px red,0 0 80px red;
-    }
-}
-
-/* TAGLINE */
-.tagline{
-    margin-top:15px;
-    font-size:16px;
-    color:#ccc;
-}
-
-/* BUTTON */
 .btn{
-    margin-top:25px;
-    padding:14px 35px;
-    background:linear-gradient(45deg, red, #ff4d4d);
-    border-radius:30px;
+    margin-top:20px;
+    padding:10px 25px;
+    background:red;
+    border-radius:25px;
     text-decoration:none;
     color:white;
-    font-weight:bold;
-    transition:0.3s;
-    display:inline-block;
 }
 
-.btn:hover{
-    transform:scale(1.1);
-    box-shadow:0 0 25px red;
+/* SECTION */
+.section{
+    padding:60px 20px;
+    text-align:center;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#111;
+    padding:15px;
+    border-radius:10px;
+}
+
+/* FOOTER */
+.footer{
+    background:black;
+    padding:20px;
+    text-align:center;
+    color:#777;
 }
 </style>
 
@@ -95,56 +100,43 @@ canvas{
 
 <body>
 
-<canvas id="particles"></canvas>
+<!-- NAVBAR -->
+<nav>
+    <h1>AGREMAR FF</h1>
+    <div>
+        <a href="#home">Home</a>
+        <a href="#videos">Videos</a>
+        <a href="#about">About</a>
+    </div>
+</nav>
 
-<div class="hero">
-    <div class="box">
-        <div class="logo">AGREMAR FF</div>
-        <div class="tagline">Dominate Every Match 🔥</div>
-        <a href="https://youtube.com" class="btn">Watch Now</a>
+<!-- HERO -->
+<div class="hero" id="home">
+    <h2>AGREMAR FF</h2>
+    <p>Dominate Every Match 🔥</p>
+    <a href="https://youtube.com" class="btn">Watch Channel</a>
+</div>
+
+<!-- VIDEOS -->
+<div class="section" id="videos">
+    <h2>Latest Videos</h2>
+    <div class="grid">
+        <div class="card">Video Coming Soon</div>
+        <div class="card">Video Coming Soon</div>
+        <div class="card">Video Coming Soon</div>
     </div>
 </div>
 
-<script>
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+<!-- ABOUT -->
+<div class="section" id="about">
+    <h2>About Me</h2>
+    <p>I upload Free Fire gameplay, highlights, and pro skills.</p>
+</div>
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-for(let i=0;i<80;i++){
-    particles.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        r:Math.random()*2,
-        dx:(Math.random()-0.5)*1,
-        dy:(Math.random()-0.5)*1
-    });
-}
-
-function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="red";
-
-    particles.forEach(p=>{
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fill();
-
-        p.x+=p.dx;
-        p.y+=p.dy;
-
-        if(p.x<0||p.x>canvas.width) p.dx*=-1;
-        if(p.y<0||p.y>canvas.height) p.dy*=-1;
-    });
-
-    requestAnimationFrame(draw);
-}
-
-draw();
-</script>
+<!-- FOOTER -->
+<div class="footer">
+    © 2026 AGREMAR FF
+</div>
 
 </body>
 </html>
