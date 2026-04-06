@@ -12,24 +12,19 @@ body{
   font-family:'Orbitron',sans-serif;
   color:white;
   overflow-x:hidden;
-  background:black;
 }
 
-/* 🔥 ANIMATED BACKGROUND */
-body::before{
-  content:"";
-  position:fixed;
-  width:100%;
-  height:100%;
-  background: radial-gradient(circle at 50% 50%, #ff0000, #000000 70%);
-  opacity:0.2;
-  animation: moveBg 6s infinite alternate;
-  z-index:-1;
-}
-
-@keyframes moveBg{
-  from{transform:scale(1);}
-  to{transform:scale(1.3);}
+/* 🔥 BACKGROUND IMAGE + DARK OVERLAY */
+.hero{
+  height:100vh;
+  background: 
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1605902711622-cfb43c44367f') center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:80px 15px 20px;
 }
 
 /* NAVBAR FIX */
@@ -40,52 +35,47 @@ body::before{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:12px 20px;
+  padding:12px 15px;
   background:rgba(0,0,0,0.8);
   z-index:1000;
+  box-sizing:border-box;
 }
 
 /* LOGO */
 .logo{
   color:red;
-  font-size:22px;
+  font-size:20px;
   text-shadow:0 0 15px red;
 }
 
-/* RIGHT MENU */
-.menu a{
-  margin-left:15px;
-  color:white;
-  text-decoration:none;
-  font-size:14px;
+/* MENU FIX (NO CUT) */
+.menu{
+  display:flex;
+  gap:10px;
 }
 
-/* LEFT SIDE NAME */
+.menu a{
+  color:white;
+  text-decoration:none;
+  font-size:13px;
+}
+
+/* SIDE NAME */
 .side-name{
   position:fixed;
-  left:10px;
+  left:5px;
   top:50%;
   transform:translateY(-50%) rotate(-90deg);
   font-family:'Audiowide',cursive;
-  font-size:20px;
+  font-size:16px;
   color:red;
-  text-shadow:0 0 15px red;
-  opacity:0.7;
+  text-shadow:0 0 10px red;
+  opacity:0.6;
 }
 
-/* HERO */
-.hero{
-  height:100vh;
-  background:url('https://images.unsplash.com/photo-1605902711622-cfb43c44367f') center/cover;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding-top:60px;
-}
-
+/* TEXT */
 .hero h1{
-  font-size:45px;
+  font-size:40px;
   color:red;
   text-shadow:0 0 20px red,0 0 40px red;
   animation: glow 2s infinite alternate;
@@ -97,50 +87,24 @@ body::before{
 }
 
 .hero p{
-  font-size:16px;
-  opacity:0.8;
+  font-size:14px;
 }
 
 /* BUTTON */
 .btn{
   margin-top:20px;
-  padding:12px 30px;
+  padding:12px 25px;
   background:red;
   border-radius:25px;
   box-shadow:0 0 20px red;
   cursor:pointer;
-  transition:0.3s;
-}
-
-.btn:hover{
-  transform:scale(1.1);
 }
 
 /* SECTION */
 .section{
-  padding:60px 20px;
+  padding:50px 15px;
   text-align:center;
-}
-
-.cards{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:15px;
-}
-
-.card{
-  width:90%;
-  max-width:250px;
-  background:#111;
-  padding:20px;
-  border-radius:10px;
-  transition:0.3s;
-}
-
-.card:hover{
-  box-shadow:0 0 20px red;
-  transform:translateY(-5px);
+  background:#000;
 }
 
 /* MOBILE FIX */
@@ -153,10 +117,8 @@ body::before{
 
 <body>
 
-<!-- SIDE NAME -->
 <div class="side-name">AMAN</div>
 
-<!-- NAVBAR -->
 <div class="nav">
   <div class="logo">AGREMAR</div>
   <div class="menu">
@@ -166,7 +128,6 @@ body::before{
   </div>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <div>
     <h1>AGREMAR</h1>
@@ -175,20 +136,14 @@ body::before{
   </div>
 </div>
 
-<!-- CONTENT -->
 <div class="section" id="content">
   <h2>My Content</h2>
-  <div class="cards">
-    <div class="card">🎮 Gaming</div>
-    <div class="card">🎥 Videos</div>
-    <div class="card">🚀 Future</div>
-  </div>
+  <p>Gaming | Videos | Future 🚀</p>
 </div>
 
-<!-- ABOUT -->
 <div class="section" id="about">
-  <h2>About Me</h2>
-  <p>This is AGREMAR – building a powerful digital identity 🔥</p>
+  <h2>About</h2>
+  <p>This is AGREMAR – powerful digital identity 🔥</p>
 </div>
 
 <script>
