@@ -12,9 +12,16 @@
       font-family: 'Orbitron', sans-serif;
       background: radial-gradient(circle at center, #0a0000, #000000);
       color: white;
+      overflow-x: hidden;
     }
 
-    /* NAVBAR */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
     .nav {
       position: fixed;
       width: 100%;
@@ -40,7 +47,6 @@
       font-size: 14px;
     }
 
-    /* HERO */
     .hero {
       height: 100vh;
       background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
@@ -50,7 +56,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding-top: 70px;
+      padding-top: 80px;
     }
 
     .hero h1 {
@@ -69,13 +75,11 @@
       border: none;
     }
 
-    /* SECTION */
     .section {
       padding: 80px 20px;
       text-align: center;
     }
 
-    /* BIG CARDS */
     .cards {
       display: flex;
       justify-content: center;
@@ -84,7 +88,8 @@
     }
 
     .card {
-      background: #111;
+      background: linear-gradient(145deg, #111, #1a0000);
+      border: 1px solid #222;
       padding: 40px;
       width: 300px;
       font-size: 20px;
@@ -97,7 +102,6 @@
       box-shadow: 0 0 25px red;
     }
 
-    /* VIDEO */
     .video iframe {
       width: 90%;
       max-width: 600px;
@@ -105,7 +109,6 @@
       border-radius: 10px;
     }
 
-    /* FOOTER */
     .footer {
       text-align: center;
       padding: 20px;
@@ -115,15 +118,17 @@
 
     .credit {
       margin-top: 10px;
-      font-size: 14px;
-      color: #666;
+      font-size: 15px;
+      color: gold;
+      letter-spacing: 1px;
     }
   </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<canvas id="sparks"></canvas>
+
 <div class="nav">
   <div class="logo">AGREMAR</div>
   <div class="menu">
@@ -134,14 +139,12 @@
   </div>
 </div>
 
-<!-- HERO -->
 <div class="hero" id="home">
   <h1>AGREMAR</h1>
   <p>Enter the gaming world 🔥</p>
   <button class="btn" onclick="scrollToContent()">Explore</button>
 </div>
 
-<!-- CONTENT -->
 <div class="section" id="content">
   <h2>My Content</h2>
   <div class="cards">
@@ -151,31 +154,67 @@
   </div>
 </div>
 
-<!-- VIDEO -->
 <div class="section" id="video">
   <h2>Latest Video</h2>
+  <p>🔥 Gameplay coming soon</p>
   <div class="video">
-    <!-- Yaha future me sirf link change karna -->
     <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
   </div>
 </div>
 
-<!-- ABOUT -->
 <div class="section" id="about">
   <h2>About Me</h2>
   <p>This is AGREMAR – building a powerful gaming identity.</p>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   © 2026 AGREMAR | All Rights Reserved
-  <div class="credit">Created by AMAN SAIF</div>
+  <div class="credit">CREATED BY AMAN SAIF</div>
 </div>
 
 <script>
 function scrollToContent() {
   document.getElementById("content").scrollIntoView({behavior: "smooth"});
 }
+
+/* SPARKS ANIMATION */
+const canvas = document.getElementById("sparks");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let sparks = [];
+
+for(let i=0;i<100;i++){
+  sparks.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    size:Math.random()*2,
+    speedY:Math.random()*1+0.5
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  sparks.forEach(s=>{
+    s.y -= s.speedY;
+    if(s.y < 0){
+      s.y = canvas.height;
+      s.x = Math.random()*canvas.width;
+    }
+
+    ctx.fillStyle = "orange";
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
 </script>
 
 </body>
