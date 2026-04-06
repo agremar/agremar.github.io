@@ -1,264 +1,188 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AGREMAR</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGREMAR</title>
 
-  <!-- FONT -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(circle at center, #0a0000, #000000);
-      color: white;
-      overflow-x: hidden;
-    }
+<style>
+body {
+  margin:0;
+  font-family:'Orbitron',sans-serif;
+  background:black;
+  color:white;
+  overflow-x:hidden;
+}
 
-    /* LOADER */
-    #loader {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: black;
-      color: red;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 30px;
-      z-index: 2000;
-    }
+/* BACKGROUND */
+.bg{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:radial-gradient(circle,#000,#1a0000,#000);
+  z-index:-3;
+}
 
-    /* PARTICLES */
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
+/* NAV */
+.nav{
+  position:fixed;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:15px 40px;
+  background:rgba(0,0,0,0.6);
+}
 
-    /* NAVBAR */
-    .nav {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      display: flex;
-      justify-content: space-between;
-      padding: 15px 30px;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-    }
+.logo{
+  font-size:26px;
+  background:linear-gradient(red,orange);
+  -webkit-background-clip:text;
+  color:transparent;
+}
 
-    .logo {
-      font-size: 24px;
-      color: red;
-      animation: glow 1.5s infinite alternate;
-    }
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
 
-    @keyframes glow {
-      from { text-shadow: 0 0 10px red; }
-      to { text-shadow: 0 0 30px red; }
-    }
+.hero h1{
+  font-size:80px;
+  background:linear-gradient(red,orange);
+  -webkit-background-clip:text;
+  color:transparent;
+}
 
-    .menu a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
+/* BUTTON */
+.btn{
+  padding:15px 40px;
+  border:2px solid red;
+  border-radius:30px;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
 
-    .menu a:hover {
-      color: red;
-    }
+.btn::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:red;
+  left:-100%;
+  top:0;
+  transition:0.4s;
+}
 
-    /* HERO */
-    .hero {
-      height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
-                  url("https://images.unsplash.com/photo-1511512578047-dfb367046420") no-repeat center/cover;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+.btn:hover::before{
+  left:0;
+}
 
-    .hero h1 {
-      font-size: 70px;
-      color: red;
-      animation: glow 2s infinite alternate;
-    }
+.btn span{
+  position:relative;
+  z-index:1;
+}
 
-    .hero p {
-      font-size: 18px;
-      opacity: 0.8;
-    }
+/* SECTION */
+.section{
+  padding:80px 20px;
+  text-align:center;
+}
 
-    /* BUTTON */
-    .btn {
-      margin-top: 20px;
-      padding: 15px 35px;
-      background: red;
-      border: none;
-      color: white;
-      font-size: 18px;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 0 20px red;
-      transition: 0.3s;
-    }
+/* CARDS */
+.cards{
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
 
-    .btn:hover {
-      transform: scale(1.1);
-      background: darkred;
-    }
+.card{
+  width:250px;
+  height:200px;
+  background:#111;
+  border-radius:15px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:0.3s;
+  position:relative;
+}
 
-    /* SECTION */
-    .section {
-      padding: 80px 20px;
-      text-align: center;
-    }
+/* NEON BORDER */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:15px;
+  padding:2px;
+  background:linear-gradient(45deg,red,orange);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+}
 
-    .cards {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 25px;
-    }
+.card:hover{
+  transform:scale(1.1) rotateY(10deg);
+  box-shadow:0 0 40px red;
+}
 
-    .card {
-      background: #111;
-      padding: 30px;
-      width: 260px;
-      border-radius: 15px;
-      transition: 0.3s;
-      box-shadow: 0 0 20px #222;
-    }
+/* SCROLL ANIMATION */
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
 
-    .card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 0 30px red;
-    }
-
-    /* VIDEO */
-    .video iframe {
-      width: 90%;
-      max-width: 500px;
-      height: 280px;
-      border-radius: 10px;
-    }
-
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      padding: 20px;
-      background: #111;
-      opacity: 0.7;
-    }
-  </style>
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+</style>
 </head>
 
 <body>
 
-<div id="loader">Loading AGREMAR...</div>
-<canvas id="particles"></canvas>
+<div class="bg"></div>
 
-<!-- NAVBAR -->
 <div class="nav">
   <div class="logo">AGREMAR</div>
-  <div class="menu">
-    <a href="#home">Home</a>
-    <a href="#content">Content</a>
-    <a href="#video">Videos</a>
-    <a href="#about">About</a>
+</div>
+
+<div class="hero">
+  <div>
+    <h1>AGREMAR</h1>
+    <div class="btn"><span>ENTER</span></div>
   </div>
 </div>
 
-<!-- HERO -->
-<div class="hero" id="home">
-  <h1>AGREMAR</h1>
-  <p>Enter the gaming world 🔥</p>
-  <button class="btn" onclick="scrollToContent()">Explore</button>
-</div>
-
-<!-- CONTENT -->
-<div class="section" id="content">
-  <h2>My Content</h2>
+<div class="section fade">
+  <h2>CONTENT</h2>
   <div class="cards">
     <div class="card">🎮 Gaming</div>
     <div class="card">🎥 Videos</div>
-    <div class="card">🚀 Future Projects</div>
+    <div class="card">🚀 Future</div>
   </div>
-</div>
-
-<!-- VIDEO -->
-<div class="section" id="video">
-  <h2>Latest Video</h2>
-  <div class="video">
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<div class="section" id="about">
-  <h2>About Me</h2>
-  <p>This is AGREMAR – building a powerful gaming identity.</p>
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-  © 2026 AGREMAR | All Rights Reserved
 </div>
 
 <script>
-// LOADER
-window.onload = function() {
-  document.getElementById("loader").style.display = "none";
-};
-
-// SCROLL
-function scrollToContent() {
-  document.getElementById("content").scrollIntoView({behavior: "smooth"});
-}
-
-// PARTICLES
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-for (let i = 0; i < 80; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 3,
-    speedX: Math.random() - 0.5,
-    speedY: Math.random() - 0.5
+// SCROLL ANIMATION
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
   });
-}
+});
 
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  particles.forEach(p => {
-    p.x += p.speedX;
-    p.y += p.speedY;
-
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
-  requestAnimationFrame(animate);
-}
-
-animate();
+document.querySelectorAll(".fade").forEach(el=>{
+  observer.observe(el);
+});
 </script>
 
 </body>
