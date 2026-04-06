@@ -111,18 +111,48 @@ gap:30px;
 }
 
 .card{
-background:linear-gradient(145deg,#111,#1a0000);
-border:1px solid #222;
-padding:40px;
-width:280px;
-border-radius:15px;
-transition:0.3s;
+background: rgba(255, 0, 0, 0.05);
+border: 1px solid rgba(255, 0, 0, 0.2);
+backdrop-filter: blur(12px);
+padding: 40px;
+width: 280px;
+border-radius: 20px;
+transition: 0.3s;
+box-shadow: 0 0 20px rgba(255,0,0,0.2);
+color: white;
+text-shadow: 0 0 6px red;
+position: relative;
+overflow: hidden;
 }
 
 .card:hover{
-transform:translateY(-12px);
-box-shadow:0 0 30px red;
+transform: translateY(-10px) scale(1.05);
+box-shadow: 0 0 40px red;
+border: 1px solid red;
+  }
+
+.card::before{
+content:'';
+position:absolute;
+width:150%;
+height:150%;
+background: linear-gradient(120deg, transparent, rgba(255,0,0,0.4), transparent);
+top:-50%;
+left:-50%;
+transform: rotate(25deg);
+opacity:0;
+transition:0.5s;
 }
+
+.card:hover::before{
+opacity:1;
+animation: shine 1s linear;
+}
+
+@keyframes shine{
+0%{transform:translateX(-100%) rotate(25deg);}
+100%{transform:translateX(100%) rotate(25deg);}
+} 
 
 /* VIDEO GRID */
 .video-grid{
