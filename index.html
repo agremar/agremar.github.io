@@ -38,15 +38,26 @@ filter: drop-shadow(0 0 30px red);
 animation: zoomBlast 1.8s ease forwards;
 }
 
+/* 🔥 TEXT FX */
 #loader h2{
 color:red;
-margin-top:10px;
-letter-spacing:4px;
-opacity:0;
-animation: textFade 1s ease forwards;
-animation-delay:0.5s;
+letter-spacing:5px;
+text-shadow:0 0 15px red;
+animation: glowText 1.5s infinite alternate;
 }
 
+/* 🔥 TAGLINE FX */
+.tagline{
+font-size:12px;
+margin-top:5px;
+letter-spacing:3px;
+text-transform:uppercase;
+color:#ff1a1a;
+text-shadow:0 0 10px red;
+animation: flicker 2s infinite;
+}
+
+/* ANIMATIONS */
 @keyframes zoomBlast{
 0%{transform:scale(0.5); opacity:0;}
 30%{transform:scale(1); opacity:1;}
@@ -54,9 +65,14 @@ animation-delay:0.5s;
 100%{transform:scale(8); opacity:0;}
 }
 
-@keyframes textFade{
-0%{opacity:0; transform:translateY(20px);}
-100%{opacity:1; transform:translateY(0);}
+@keyframes glowText{
+from{text-shadow:0 0 10px red;}
+to{text-shadow:0 0 30px red;}
+}
+
+@keyframes flicker{
+0%,18%,22%,25%,53%,57%,100%{opacity:1;}
+20%,24%,55%{opacity:0.4;}
 }
 
 /* SPARKS */
@@ -104,7 +120,6 @@ url("https://images.unsplash.com/photo-1511512578047-dfb367046420") center/cover
 padding-top:80px;
 }
 
-/* MAIN LOGO */
 .main-logo{
 width:220px;
 filter: drop-shadow(0 0 60px red);
@@ -113,7 +128,6 @@ transition:0.4s;
 
 .main-logo:hover{
 transform:scale(1.1);
-filter: drop-shadow(0 0 40px red);
 }
 
 /* BUTTON */
@@ -163,7 +177,6 @@ width: 280px;
 border-radius: 20px;
 transition: 0.3s;
 box-shadow: 0 0 20px rgba(255,0,0,0.2);
-color: white;
 text-shadow: 0 0 6px red;
 position: relative;
 overflow: hidden;
@@ -172,7 +185,6 @@ overflow: hidden;
 .card:hover{
 transform: translateY(-10px) scale(1.05);
 box-shadow: 0 0 40px red;
-border: 1px solid red;
 }
 
 .card::before{
@@ -233,6 +245,7 @@ margin-top:10px;
 <div id="loader">
 <img src="logo.png" class="loader-logo">
 <h2>AGREMAR</h2>
+<p class="tagline">Created by AMAN SAIF</p>
 </div>
 
 <canvas id="sparks"></canvas>
@@ -285,9 +298,6 @@ margin-top:10px;
 <div class="footer">
 © 2026 AGREMAR  
 <div class="credit">CREATED BY AMAN SAIF</div>
-<p style="font-size:12px; margin-top:10px; opacity:0.6;">
-All content on this website is owned by AGREMAR and protected under copyright laws.
-</p>
 </div>
 
 <script>
@@ -298,7 +308,6 @@ const loader=document.getElementById("loader");
 loader.style.opacity="0";
 setTimeout(()=>{loader.style.display="none";},500);
 }
-
 window.onload=hideLoader;
 setTimeout(hideLoader,2000);
 
