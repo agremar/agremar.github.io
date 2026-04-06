@@ -179,7 +179,42 @@ text-align:center;
 color:gold;
 margin-top:10px;
 }
+
+/* 🔥 LOADER CSS */
+#loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+transition:opacity 0.5s ease;
+}
+
+.loader-logo{
+width:120px;
+animation: logoZoom 1.5s ease forwards;
+filter: drop-shadow(0 0 30px red);
+}
+
+#loader h2{
+color:red;
+margin-top:10px;
+letter-spacing:3px;
+}
+
+@keyframes logoZoom{
+0%{transform:scale(0.7); opacity:0;}
+100%{transform:scale(1); opacity:1;}
+}
+  
 </style>
+
 </head>
 
 <body>
